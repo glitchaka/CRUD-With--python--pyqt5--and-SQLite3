@@ -13,4 +13,4 @@ class contactos:
         cursor = conexion.cursor()                         # Crea un cursor
         sentencialSQL = "SELECT * FROM contactos"    
         cursor.execute(sentencialSQL)
-        print(cursor.fetchall())
+        return cursor.fetchall()
