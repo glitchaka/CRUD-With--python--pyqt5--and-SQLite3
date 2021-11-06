@@ -10,7 +10,8 @@ ventana.show()
 def agregar():
     print("Agregar")
     objContactos = conexion.contactos()
-    objContactos.iniciarConexion()
+    objContactos.leerContactos()
+
 
 def eliminar():
     print("eliminar")
