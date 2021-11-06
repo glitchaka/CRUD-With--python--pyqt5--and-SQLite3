@@ -23,3 +23,11 @@ class contactos:
         cursor.execute(sentencialSQL, datosContacto)
         conexion.commit()
         conexion.close()
+
+    def borrarContacto(self, idContacto):
+        conexion = self.iniciarConexion()
+        cursor = conexion.cursor()
+        sentencialSQL = "DELETE FROM contactos WHERE id=(?)"
+        cursor.execute(sentencialSQL, [idContacto])
+        conexion.commit()
+        conexion.close()

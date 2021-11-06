@@ -3,19 +3,22 @@ from PyQt5.QtWidgets import *
 import sys
 import conexion
 
-
 def agregar():
     print("Agregar")
     nombre = ventana.txtNombre.text()
     correo = ventana.txtCorreo.text()
-    print (nombre, correo)
-
+    
     objContactos = conexion.contactos()
     contactos = objContactos.crearContacto((nombre, correo))
     consultar()
 
 def eliminar():
     print("eliminar")
+    id = ventana.txtId.text()
+    objContactos = conexion.contactos()
+    contactos = objContactos.borrarContacto(id)
+    consultar()
+    
 
 def modificar():
     print("modificar")
@@ -36,6 +39,18 @@ def consultar():
         ventana.tblContacto.setItem(indiceControl,2, QTableWidgetItem(str(contacto[2])))
         indiceControl += 1
 
+def seleccionar():
+    id=ventana.tblContacto.selectedIndexes()[0].data()  #obtiene el id del contacto seleccionado
+    nombre =ventana.tblContacto.selectedIndexes()[1].data()
+    correo =ventana.tblContacto.selectedIndexes()[2].data()
+
+    print(id, nombre, correo)
+
+    ventana.txtId.setText(id)
+    ventana.txtNombre.setText(nombre)
+    ventana.txtCorreo.setText(correo)
+
+
 aplicacion = QtWidgets.QApplication([])
 ventana = uic.loadUi("ventana.ui")
 ventana.show()
@@ -44,6 +59,7 @@ ventana.tblContacto.setHorizontalHeaderLabels(['ID', 'Nombre', 'Correo'])
 ventana.tblContacto.setEditTriggers(QTableWidget.NoEditTriggers)
 ventana.tblContacto.setSelectionBehavior(QTableWidget.SelectRows)
 
+ventana.tblContacto.cellClicked.connect(seleccionar)
 
 ventana.btnAgregar.clicked.connect(agregar)
 ventana.btnEliminar.clicked.connect(eliminar)
