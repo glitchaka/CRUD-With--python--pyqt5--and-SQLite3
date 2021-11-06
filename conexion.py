@@ -14,3 +14,12 @@ class contactos:
         sentencialSQL = "SELECT * FROM contactos"    
         cursor.execute(sentencialSQL)
         return cursor.fetchall()
+
+
+    def crearContacto(self, datosContacto):
+        conexion = self.iniciarConexion()
+        cursor = conexion.cursor()
+        sentencialSQL = "INSERT INTO contactos (nombre,  correo) VALUES (?,?)"
+        cursor.execute(sentencialSQL, datosContacto)
+        conexion.commit()
+        conexion.close()
