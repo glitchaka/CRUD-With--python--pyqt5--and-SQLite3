@@ -22,9 +22,17 @@ def eliminar():
 
 def modificar():
     print("modificar")
+    id = ventana.txtId.text()
+    nombre = ventana.txtNombre.text()
+    correo = ventana.txtCorreo.text()
+    
+    objContactos = conexion.contactos()
+    contactos = objContactos.modificarContacto((nombre, correo,id))
+    consultar()
 
 def cancelar():
     print("cancelar")
+    consultar()
 
 def consultar():
     ventana.tblContacto.setRowCount(0)
@@ -39,6 +47,15 @@ def consultar():
         ventana.tblContacto.setItem(indiceControl,2, QTableWidgetItem(str(contacto[2])))
         indiceControl += 1
 
+    ventana.txtId.setText("")
+    ventana.txtNombre.setText("")
+    ventana.txtCorreo.setText("")
+
+    ventana.btnAgregar.setEnabled(True)
+    ventana.btnEliminar.setEnabled(False)
+    ventana.btnModificar.setEnabled(False)
+    ventana.btnCancelar.setEnabled(False)
+
 def seleccionar():
     id=ventana.tblContacto.selectedIndexes()[0].data()  #obtiene el id del contacto seleccionado
     nombre =ventana.tblContacto.selectedIndexes()[1].data()
@@ -50,10 +67,16 @@ def seleccionar():
     ventana.txtNombre.setText(nombre)
     ventana.txtCorreo.setText(correo)
 
+    ventana.btnAgregar.setEnabled(False)
+    ventana.btnEliminar.setEnabled(True)
+    ventana.btnModificar.setEnabled(True)
+    ventana.btnCancelar.setEnabled(True)
+
 
 aplicacion = QtWidgets.QApplication([])
 ventana = uic.loadUi("ventana.ui")
 ventana.show()
+consultar()
 
 ventana.tblContacto.setHorizontalHeaderLabels(['ID', 'Nombre', 'Correo'])
 ventana.tblContacto.setEditTriggers(QTableWidget.NoEditTriggers)

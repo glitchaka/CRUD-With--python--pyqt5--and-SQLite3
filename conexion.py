@@ -31,3 +31,11 @@ class contactos:
         cursor.execute(sentencialSQL, [idContacto])
         conexion.commit()
         conexion.close()
+
+    def modificarContacto(self, datosContacto):
+        conexion = self.iniciarConexion()
+        cursor = conexion.cursor()
+        sentencialSQL = "UPDATE contactos SET nombre = ?,  correo = ? WHERE id = ?"
+        cursor.execute(sentencialSQL, datosContacto)
+        conexion.commit()
+        conexion.close()
