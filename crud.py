@@ -3,7 +3,17 @@ from PyQt5.QtWidgets import *
 import sys
 import conexion
 
+def validarCampos():
+    if ventana.txtNombre.text() == "" or ventana.txtCorreo.text() == "":
+        alerta = QMessageBox()
+        alerta.setText("Debe llenar todos los campos!")
+        alerta.setIcon(QMessageBox.Information)
+        alerta.exec()
+        return True
+
 def agregar():
+    if validarCampos():
+        return False
     print("Agregar")
     nombre = ventana.txtNombre.text()
     correo = ventana.txtCorreo.text()
